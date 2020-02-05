@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "Final Test: Failure",
+			"name": "Final Test: Failure Authorized Invalid Image File",
 			"event": [
 				{
 					"listen": "test",
@@ -20,6 +20,63 @@
 							"pm.test(\"Body matches string\", function () {",
 							"    pm.expect(pm.response.text()).to.include(\"Something went wrong.\");",
 							"});",
+							"pm.test(\"Response time is less than 600ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(600);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhlbGxvQGdtYWlsLmNvbSIsInBhc3N3b3JkX2hhc2giOiIkMmIkMTAkQTF0d0tpTnpnOEt1dmwwYW5xYzdFT1NEODVUN0s0SVp5emJGUXhiTzh6a0RrdEJFTFdyZS4iLCJjcmVhdGVkQXQiOiIyMDIwLTAyLTA1VDE3OjM3OjU2Ljk0MVoiLCJ1cGRhdGVkQXQiOiIyMDIwLTAyLTA1VDE3OjM3OjU2Ljk0NFoiLCJpYXQiOjE1ODA5MjQyNzd9.zw5NtVXZeB8onqgXNsJm5HgSu1WaYn3RPdsPqZ12ifs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{HOST}}/filteredimage?image_url=https://timedotcom.files.wordpress.com/2019/03/kitten-report.jpg",
+					"protocol": "http",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"filteredimage"
+					],
+					"query": [
+						{
+							"key": "image_url",
+							"value": "https://timedotcom.files.wordpress.com/2019/03/kitten-report.jpg"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Final Test: Failure Unauthorized",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ceeb5da5-a88e-44c0-ac9e-ac688414f682",
+						"exec": [
+							"pm.test(\"Status code is 401\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});",
+							"",
+							"pm.test(\"Response should have JSON data\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property(\"message\", \"No authorization headers.\")",
+							"});",
+							"",
 							"pm.test(\"Response time is less than 600ms\", function () {",
 							"    pm.expect(pm.response.responseTime).to.be.below(600);",
 							"});"
@@ -51,7 +108,7 @@
 			"response": []
 		},
 		{
-			"name": "Final Test: Success",
+			"name": "Final Test: Success Authorized",
 			"event": [
 				{
 					"listen": "test",
@@ -74,6 +131,16 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhlbGxvQGdtYWlsLmNvbSIsInBhc3N3b3JkX2hhc2giOiIkMmIkMTAkQTF0d0tpTnpnOEt1dmwwYW5xYzdFT1NEODVUN0s0SVp5emJGUXhiTzh6a0RrdEJFTFdyZS4iLCJjcmVhdGVkQXQiOiIyMDIwLTAyLTA1VDE3OjM3OjU2Ljk0MVoiLCJ1cGRhdGVkQXQiOiIyMDIwLTAyLTA1VDE3OjM3OjU2Ljk0NFoiLCJpYXQiOjE1ODA5MjQyNzd9.zw5NtVXZeB8onqgXNsJm5HgSu1WaYn3RPdsPqZ12ifs",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
@@ -96,19 +163,19 @@
 			"response": []
 		},
 		{
-			"name": "Root Endpoint: /",
+			"name": "Final Test: Success Root Endpoint",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"id": "8baa3a17-1fb9-4ed6-8b98-29ccd21ff661",
 						"exec": [
-							"pm.test(\"Status code is 400\", function () {",
-							"    pm.response.to.have.status(400);",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
 							"});",
 							"",
 							"pm.test(\"Body matches string\", function () {",
-							"    pm.expect(pm.response.text()).to.include(\"Please provide image url\");",
+							"    pm.expect(pm.response.text()).to.include(\"try GET /filteredimage?image_url={{}}\");",
 							"});",
 							"pm.test(\"Response time is less than 600ms\", function () {",
 							"    pm.expect(pm.response.responseTime).to.be.below(600);",
@@ -122,13 +189,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://{{HOST}}/filteredimage",
+					"raw": "http://{{HOST}}/",
 					"protocol": "http",
 					"host": [
 						"{{HOST}}"
 					],
 					"path": [
-						"filteredimage"
+						""
 					]
 				}
 			},
@@ -159,7 +226,7 @@
 	],
 	"variable": [
 		{
-			"id": "1df3d31a-de30-494b-a3d0-f1228dd8713c",
+			"id": "0de4e827-87f3-422a-95d2-d6094b045682",
 			"key": "HOST",
 			"value": "localhost:8082",
 			"type": "string"

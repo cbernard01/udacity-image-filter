@@ -46,3 +46,10 @@ Prevent requests without valid authentication headers.
 
 Add your own domain name and have it point to the running services (try adding a subdomain name to point to the processing server)
 > !NOTE: Domain names are not included in AWS’ free tier and will incur a cost.
+
+
+
+    Refactor the project built in the course to make a request to this project service upon image upload
+    Add a required authentication header to block public requests
+    Add your own domain name and have it point to the running services (try adding a subdomain name to point to the processing server) NOTE: Domain names are not included in AWS’ free tier and will incur a cost.
+
