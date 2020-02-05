@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "ddec0840-59b0-4e21-865d-3ccbde9ad88f",
-		"name": "cloud-cdnd-c2-final",
+		"name": "CLB-Final Cloud Dev C2 Project",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -226,7 +226,7 @@
 	],
 	"variable": [
 		{
-			"id": "0de4e827-87f3-422a-95d2-d6094b045682",
+			"id": "a1923447-be30-4146-bbf1-0e0f681d3700",
 			"key": "HOST",
 			"value": "localhost:8082",
 			"type": "string"

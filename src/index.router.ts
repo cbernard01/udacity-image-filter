@@ -5,11 +5,10 @@ import {deleteLocalFile, filterImageFromURL} from "./util/util";
 // Create the router from express
 const router: Router = Router();
 
-
 // Filter Image endpoint
 // Receives an image URL query string and returns a formatted image file
 router.get("/filteredimage",
-  requireAuth,
+  requireAuth, // Authentication Middleware
   async (req: Request, res: Response) => {
     // Get Query string image_url
     const image_url = req.query.image_url;
